@@ -49,6 +49,7 @@ export async function connectionRequest(
 
   let connectionRequestUrl,
     udpConnectionRequestAddress,
+    stunEnable,
     connReqJabberId,
     username,
     password;
@@ -61,6 +62,9 @@ export async function connectionRequest(
       device[
         "InternetGatewayDevice.ManagementServer.UDPConnectionRequestAddress"
       ] || {}
+    ).value || [""])[0];
+    stunEnable = ((
+      device["InternetGatewayDevice.ManagementServer.STUNEnable"] || {}
     ).value || [""])[0];
     connReqJabberId = ((
       device["InternetGatewayDevice.ManagementServer.ConnReqJabberID"] || {}
@@ -82,6 +86,8 @@ export async function connectionRequest(
     udpConnectionRequestAddress = ((
       device["Device.ManagementServer.UDPConnectionRequestAddress"] || {}
     ).value || [""])[0];
+    stunEnable = ((device["Device.ManagementServer.STUNEnable"] || {})
+      .value || [""])[0];
     connReqJabberId = ((device["Device.ManagementServer.ConnReqJabberID"] || {})
       .value || [""])[0];
     username = ((
@@ -157,24 +163,15 @@ export async function connectionRequest(
 
   const debug = !!getConfig(snapshot, "cwmp.debug", {}, now, evalCallback);
 
-  let udpProm = Promise.resolve(false);
-  if (udpConnectionRequestAddress) {
-    try {
-      const u = new URL("udp://" + udpConnectionRequestAddress);
-      udpProm = udpConnectionRequest(
-        u.hostname,
-        parseInt(u.port || "80"),
-        authExp,
-        UDP_CONNECTION_REQUEST_PORT,
-        debug,
-        deviceId
-      ).then(
-        () => true,
-        () => false
-      );
-    } catch (err) {
-      // Ignore invalid address
-    }
+  let udpProm;
+  if (udpConnectionRequestAddress && +stunEnable) {
+    udpProm = udpConnectionRequest(
+      udpConnectionRequestAddress,
+      authExp,
+      UDP_CONNECTION_REQUEST_PORT,
+      debug,
+      deviceId
+    );
   }
 
   let status;
