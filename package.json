@@ -32,7 +32,8 @@
     "koa-static": "^5.0.0",
     "mongodb": "^4.9.0",
     "parsimmon": "^1.18.1",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "zeromq": "^5.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
