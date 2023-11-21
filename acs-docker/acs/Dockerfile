@@ -1,4 +1,4 @@
-MAINTAINER=Quoc.Phan@fansipan.technology
+MAINTAINER=@fansipan.technology
 ARG VERSION=latest
 FROM demo_base:${VERSION}
 
