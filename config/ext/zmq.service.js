@@ -1,7 +1,6 @@
 const http = require('http');
 var zmq = require('zeromq');
-
-const url = "tcp://*:55592";
+const url = process.env.ZERO_MQ_URL ? process.env.ZERO_MQ_URL : "tcp://*:55592";
 const topic = "ACS_AP_PERIODIC_INFORM_EVENTS";
 
 var informPub = zmq.socket('pub');

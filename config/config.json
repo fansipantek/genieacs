@@ -1,5 +1,5 @@
 {
-  "MONGODB_CONNECTION_URL" : "mongodb://demo_mongodb/genieacs",
+  "MONGODB_CONNECTION_URL" : "mongodb://192.168.90.252/acs",
   "CWMP_INTERFACE" : "0.0.0.0",
   "CWMP_PORT" : 7547,
   "CWMP_SSL" : false,
@@ -9,10 +9,11 @@
   "FS_PORT" : 7567,
   "FS_HOSTNAME" : "LOCAL_GATEWAY",
   "DEBUG" : true,
+  "DEBUG_FORMAT": "json",
   "LOG_INFORMS": true,
   "UI_SSL": false,
   "UI_INTERFACE": "0.0.0.0",
   "UI_PORT": 7577,
-  "UI_JWT_SECRET": "dummy",
+  "UI_JWT_SECRET": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiYXV0aE1ldGhvZCI6ImxvY2FsIiwiaWF0IjoxNzA1MzA1NjI2fQ.SWfd7w_dPcbuRwL8gar46kPExQHoDDJIFcOJMvw0hBk",
   "UDP_CONNECTION_REQUEST_PORT": "3478"
   }

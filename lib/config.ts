@@ -33,12 +33,11 @@ while (!existsSync(`${ROOT_DIR}/package.json`)) {
 
 // For compatibility with v1.1
 let configDir, cwmpSsl, nbiSsl, fsSsl, uiSsl, fsHostname;
-
 const options = {
   EXT_DIR: { type: "path", default: resolve(ROOT_DIR, "config/ext") },
   MONGODB_CONNECTION_URL: {
     type: "string",
-    default: "mongodb://127.0.0.1/genieacs",
+    default: "mongodb://192.168.90.252/acs",
   },
 
   CWMP_WORKER_PROCESSES: { type: "int", default: 0 },
@@ -73,7 +72,7 @@ const options = {
   UI_SSL_KEY: { type: "string", default: "" },
   UI_LOG_FILE: { type: "path", default: "" },
   UI_ACCESS_LOG_FILE: { type: "path", default: "" },
-  UI_JWT_SECRET: { type: "string", default: "" },
+  UI_JWT_SECRET: { type: "string", default: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiYXV0aE1ldGhvZCI6ImxvY2FsIiwiaWF0IjoxNzA1MzA1NjI2fQ.SWfd7w_dPcbuRwL8gar46kPExQHoDDJIFcOJMvw0hBk" },
 
   UDP_CONNECTION_REQUEST_PORT: { type: "int", default: 0 },
   FORWARDED_HEADER: { type: "string", default: "" },
@@ -102,8 +101,8 @@ const options = {
   // Should probably never be changed
   DEVICE_ONLINE_THRESHOLD: { type: "int", default: 4000 },
 
-  XMPP_JID: { type: "string", default: "" },
-  XMPP_PASSWORD: { type: "string", default: "" },
+  XMPP_JID: { type: "string", default: "acs@127.0.0.1" },
+  XMPP_PASSWORD: { type: "string", default: "secret" },
 };
 
 const allConfig: { [name: string]: string | number } = {};
@@ -206,7 +205,8 @@ for (const [k, v] of Object.entries(process.env))
 const configFilename = configDir
   ? `${configDir}/config.json`
   : `${ROOT_DIR}/config/config.json`;
-
+console.log(configDir)
+console.log(configFilename)
 if (existsSync(configFilename)) {
   const configFile = JSON.parse(readFileSync(configFilename).toString());
 

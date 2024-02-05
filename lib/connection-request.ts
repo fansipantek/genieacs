@@ -269,6 +269,7 @@ export async function xmppConnectionRequest(
   deviceId: string
 ): Promise<string> {
   if (!xmppClient) {
+    logger.info({xmpp: XMPP_JID})
     const [host, username] = XMPP_JID.split("@").reverse();
     xmppClient = await XmppClient.connect({
       host,
