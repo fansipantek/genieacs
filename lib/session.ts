@@ -1167,6 +1167,7 @@ export async function rpcRequest(
     ) * 2;
 
   if (sessionContext.iteration >= MAX_ITERATIONS * (sessionContext.cycle + 1)) {
+    logger.warn({ "too_many_commits": `DEVICE_ID: ${sessionContext.deviceId}: --- ${JSON.stringify(sessionContext.tasks)}` })
     return {
       fault: {
         code: "too_many_commits",
